@@ -1,40 +1,40 @@
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 
-import { CountryService } from '../../services/http.service';
+import { Currency } from '../../models/CountryList.model';
+import { CurrencyRates } from '../../models/Currency.model';
+import CountryService from '../../services/http.service';
 
-const CurrencyConverter = ({ countryCurrencies }: any) => {
-  if (!countryCurrencies) return <div>...loading</div>;
+type CurrencyConverterProps = {
+  countryCurrencies: Currency[];
+};
 
-  const [currency, setCurrency] = useState(null);
+const CurrencyConverter = ({
+  countryCurrencies,
+}: CurrencyConverterProps): ReactElement => {
+  const [currency, setCurrency] = useState(null as CurrencyRates);
 
   useEffect(() => {
-    CountryService.fetchCurrency(countryCurrencies[0].code)
-      .then((response) => response.json())
-      .then((data) => {
-        setCurrency(data);
-      });
-  }, []);
+    CountryService.fetchCurrency(
+      countryCurrencies[0].code
+    ).then((data: CurrencyRates) => setCurrency(data));
+  }, [countryCurrencies]);
 
-  const currencyRates = [];
-
-  if (currency && currency.rates) {
-    for (const [key, value] of Object.entries(currency.rates)) {
-      const val = value as number;
-      const component = (
-        <div key={key}>
-          {key}: {val.toFixed(2)}
-        </div>
-      );
-
-      currencyRates.push(component);
-    }
-  }
+  if (!countryCurrencies) return <div>...loading</div>;
 
   return (
     <div>
       <div className="h4">Currency name:</div>
       <div className="h4">{`${countryCurrencies[0].name} ${countryCurrencies[0].symbol}`}</div>
-      <div className="h4">{currencyRates || '...loading'}</div>
+      {currency && currency.rates ? (
+        Object.entries(currency.rates).map((currencyPair: [string, number]) => (
+          <div>
+            <span>{currencyPair[0]}</span>
+            <span>{currencyPair[1]}</span>
+          </div>
+        ))
+      ) : (
+        <div>...Loading</div>
+      )}
     </div>
   );
 };

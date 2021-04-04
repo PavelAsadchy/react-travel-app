@@ -1,5 +1,5 @@
-import React from 'react';
-import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { ReactElement } from 'react';
+import { Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
@@ -9,12 +9,18 @@ import './Header.scss';
 
 type HeaderProps = {
   isMainPage: boolean;
-  searchHandler?: Function;
+  searchHandler?: (value: string) => void;
   searchValue?: string;
 };
 
-const Header = ({ isMainPage, searchHandler, searchValue }: HeaderProps) => {
-  const search = isMainPage ? <Search searchHandler={searchHandler} searchValue={searchValue} /> : null;
+const Header = ({
+  isMainPage,
+  searchHandler,
+  searchValue,
+}: HeaderProps): ReactElement => {
+  const search = isMainPage ? (
+    <Search searchHandler={searchHandler} searchValue={searchValue} />
+  ) : null;
 
   return (
     <Navbar bg="light" className="container header" expand="lg">
@@ -25,6 +31,11 @@ const Header = ({ isMainPage, searchHandler, searchValue }: HeaderProps) => {
       <LanguageSwitcher />
     </Navbar>
   );
+};
+
+Header.defaultProps = {
+  searchHandler: null,
+  searchValue: '',
 };
 
 export default Header;

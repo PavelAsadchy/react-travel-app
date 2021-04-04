@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+
 import { CountryDetail } from '../../models/CountryInfo.model';
 
 import './CountryInfo.scss';
@@ -7,7 +9,7 @@ type CountryInfoProps = {
   countryDetail: CountryDetail;
 };
 
-const CountryInfo = ({ countryDetail }: CountryInfoProps) => {
+const CountryInfo = ({ countryDetail }: CountryInfoProps): ReactElement => {
   if (!countryDetail) return <div>...loading</div>;
 
   const createMarkup = () => {
@@ -16,7 +18,11 @@ const CountryInfo = ({ countryDetail }: CountryInfoProps) => {
 
   return (
     <div className="country">
-      <div className="country__description lead" dangerouslySetInnerHTML={createMarkup()} />
+      <div
+        className="country__description lead"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={createMarkup()}
+      />
     </div>
   );
 };
