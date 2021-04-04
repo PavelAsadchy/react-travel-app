@@ -1,3 +1,5 @@
+import { ReactElement } from 'react';
+
 import { Country } from '../../models/CountryList.model';
 
 import './CountryPageTitle.scss';
@@ -7,7 +9,9 @@ type CountryPageTitleProps = {
   countryData: Country;
 };
 
-const CountryPageTitle = ({ countryData }: CountryPageTitleProps) => {
+const CountryPageTitle = ({
+  countryData,
+}: CountryPageTitleProps): ReactElement => {
   if (!countryData) return <div>...loading</div>;
   const { name, flag, capital } = countryData;
 

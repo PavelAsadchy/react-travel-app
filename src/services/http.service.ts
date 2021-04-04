@@ -1,69 +1,86 @@
-const openTripMapApiKey =
-  '5ae2e3f221c38a28845f05b65947648325a329e2626a4b6b7f12a1df';
+import URLS from '../consts/urls.const';
+import {
+  CapitalAttraction,
+  CapitalAttractionInfo,
+  CapitalInfo,
+  YoutubeVideoResponse,
+} from '../models/AttractionInfo.model';
+import { CountryInfoResponse } from '../models/CountryInfo.model';
+import { Country } from '../models/CountryList.model';
+import { CurrencyRates } from '../models/Currency.model';
+import { WeatherInfo } from '../models/Weather.model';
 
-export const CountryService = {
-  fetchAllCountries: async () => {
-    const apiCountriesUrl = 'https://restcountries.eu/rest/v2/';
-    return fetch(apiCountriesUrl);
-  },
+const CountryService = {
+  fetchAllCountries: async (): Promise<Country[]> =>
+    fetch(URLS.COUNTRIES_ALL).then((resp) => resp.json()),
 
-  fetchCountry: async (country: string) => {
-    const apiCountriesUrl = `https://restcountries.eu/rest/v2/name/${country}`;
-    return fetch(apiCountriesUrl);
-  },
+  fetchCountry: async (country: string): Promise<Country[]> =>
+    fetch(URLS.COUNTRY_BY_NAME + country).then((resp) => resp.json()),
 
-  fetchCountryInfoByName: async (country: string, lang = 'en') => {
-    if (country === 'russian federation') {
-      return fetch(`https://${lang}.wikipedia.org/w/api.php?action=query&origin=*&prop=extracts&format=json&exintro=&titles=russia`);
+  fetchCountryInfoByName: async (
+    country: string,
+    lang = 'en'
+  ): Promise<CountryInfoResponse> => {
+    let normalizedCountryName: string;
+
+    switch (country) {
+      case 'russian federation':
+        normalizedCountryName = 'russia';
+        break;
+
+      case 'united states of america':
+        normalizedCountryName = 'United_States';
+        break;
+
+      default:
+        normalizedCountryName = country;
     }
 
-    if (country === 'united states of america') {
-      return fetch(`https://${lang}.wikipedia.org/w/api.php?action=query&origin=*&prop=extracts&format=json&exintro=&titles=United_States`);
-    }
+    normalizedCountryName = normalizedCountryName
+      .split(' ')
+      .map((word: string) => word[0].toUpperCase() + word.slice(1))
+      .join(' ');
 
-    const apiCountryInfoUrl = `https://${lang}.wikipedia.org/w/api.php?action=query&origin=*&prop=extracts&format=json&exintro=&titles=${country}`;
-    return fetch(apiCountryInfoUrl);
+    return fetch(URLS.COUNTRY_WIKI(lang) + normalizedCountryName).then((resp) =>
+      resp.json()
+    );
   },
 
   fetchCapitalCoordinates: async (
     countryCode: string,
     capital: string,
     lang = 'en'
-  ) => {
-    const url = `https://api.opentripmap.com/0.1/${lang}/places/geoname?name=${capital}&country=${countryCode}&apikey=${openTripMapApiKey}`;
-    return fetch(url);
-  },
+  ): Promise<CapitalInfo> =>
+    fetch(
+      URLS.COUNTRY_CAPITAL_COORDS(countryCode, capital, lang)
+    ).then((resp) => resp.json()),
 
   fetchCapitalAttractions: async (
     radius: number,
     lon: number,
     lat: number,
     lang = 'en'
-  ) => {
-    const url = `https://api.opentripmap.com/0.1/${lang}/places/radius?radius=${radius}&lon=${lon}&lat=${lat}&rate=3&format=json&limit=6&apikey=${openTripMapApiKey}`;
-    return fetch(url);
-  },
+  ): Promise<CapitalAttraction[]> =>
+    fetch(URLS.CAPITAL_ATTRACTION(radius, lon, lat, lang)).then((resp) =>
+      resp.json()
+    ),
 
-  fetchAttractionInfo: async (xid: string, lang = 'en') => {
-    const url = `https://api.opentripmap.com/0.1/${lang}/places/xid/${xid}?apikey=${openTripMapApiKey}`;
-    return fetch(url);
-  },
+  fetchAttractionInfo: async (
+    xid: string,
+    lang = 'en'
+  ): Promise<CapitalAttractionInfo> =>
+    fetch(URLS.CAPITAL_ATTRACTION_INFO(xid, lang)).then((resp) => resp.json()),
 
-  fetchAttractionVideo: async (country: string) => {
-    const apiKey = 'AIzaSyDoSce_kXLM52dh1hmFXUheB8pzSxbEXGs';
-    const url = `https://www.googleapis.com/youtube/v3/search?`;
-    const properties = `key=${apiKey}&type=video&part=snippet&maxResults=1&q=${country} attractions`;
-    return fetch(url + properties);
-  },
-  
-  fetchWeather: async (cityName: string) => {
-    const apiWeatherUrl = 'http://api.openweathermap.org/data/2.5/weather?q=';
-    const apiKey = '492003bfd44fb7dbe75df7d92a5e55d1';
-    return fetch(`${apiWeatherUrl}${cityName}&appid=${apiKey}&units=metric`);
-  },
+  fetchAttractionVideo: async (
+    country: string
+  ): Promise<YoutubeVideoResponse> =>
+    fetch(URLS.YOUTUBE(country)).then((resp) => resp.json()),
 
-  fetchCurrency: async (countryCode: string) => {
-    const url = `https://api.exchangeratesapi.io/latest?base=USD&symbols=USD,EUR,${countryCode}`;
-    return fetch(url);
-  },
+  fetchWeather: async (cityName: string): Promise<WeatherInfo> =>
+    fetch(URLS.WEATHER(cityName)).then((resp) => resp.json()),
+
+  fetchCurrency: async (currencyCode: string): Promise<CurrencyRates> =>
+    fetch(URLS.CURRENCY(currencyCode)).then((resp) => resp.json()),
 };
+
+export default CountryService;

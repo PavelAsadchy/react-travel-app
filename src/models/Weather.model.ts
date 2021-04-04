@@ -8,37 +8,37 @@ export interface Weather {
 export interface WeatherInfo {
   base: string;
   clouds: {
-    all: number,
+    all: number;
   };
   cod: number;
   coord: {
-    lon: number,
-    lat: number,
+    lon: number;
+    lat: number;
   };
   dt: number;
   id: number;
   main: {
-    feels_like: number,
-    humidity: number,
-    pressure: number,
-    temp: number,
-    temp_max: number,
-    temp_min: number,
+    feels_like: number;
+    humidity: number;
+    pressure: number;
+    temp: number;
+    temp_max: number;
+    temp_min: number;
   };
   name: string;
   sys: {
-    country: string,
-    id: number,
-    sunrise: Date,
-    sunset: Date,
-    type: number,
+    country: string;
+    id: number;
+    sunrise: Date;
+    sunset: Date;
+    type: number;
   };
   timezone: number;
   visibility: number;
   weather: Weather[];
   wind: {
-    deg: number,
-    gust: number,
-    speed: number,
-  }
+    deg: number;
+    gust: number;
+    speed: number;
+  };
 }

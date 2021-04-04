@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
 import { useLocation } from 'react-router';
-import { Link } from 'react-router-dom';
 
-import { CountryDetail, CountryInfoResponse } from '../../models/CountryInfo.model';
-import { CountryService } from '../../services/http.service';
+import {
+  CountryDetail,
+  CountryInfoResponse,
+} from '../../models/CountryInfo.model';
+import { Country } from '../../models/CountryList.model';
+import CountryService from '../../services/http.service';
 import Attractions from '../Attractions/Attractions';
 import CapitalTime from '../CapitalTime/CapitalTime';
 import CountryInfo from '../CountryInfo/CountyInfo';
@@ -17,23 +20,25 @@ import Weather from '../Weather/Weather';
 
 import './CountryPage.scss';
 
-const CountryPage = () => {
+const CountryPage = (): ReactElement => {
   const [countryDetail, setCountryDetail] = useState({} as CountryDetail);
-  const [countryData, setCountryData] = useState(null);
+  const [countryData, setCountryData] = useState(null as Country);
 
   const location = useLocation();
   const countryName = location.pathname.split('/')[1];
 
   useEffect(() => {
-    CountryService.fetchCountryInfoByName(countryName)
-      .then((response) => response.json())
-      .then((countryInfo: CountryInfoResponse) => setCountryDetail(Object.values(countryInfo.query.pages)[0]));
+    CountryService.fetchCountryInfoByName(
+      countryName
+    ).then((countryInfo: CountryInfoResponse) =>
+      setCountryDetail(Object.values(countryInfo.query.pages)[0])
+    );
 
-    CountryService.fetchCountry(countryName)
-      .then((response) => response.json())
-      .then((country) => setCountryData(country[0]));
-  }, []);
-  console.log(countryData);
+    CountryService.fetchCountry(countryName).then((country: Country[]) =>
+      setCountryData(country[0])
+    );
+  }, [countryName]);
+
   return (
     <div className="country-page">
       <Header isMainPage={false} />
@@ -42,7 +47,9 @@ const CountryPage = () => {
           <div className="country-page__widget">
             {countryData ? <CapitalTime countryData={countryData} /> : null}
             {countryData && <Weather capital={countryData.capital} />}
-            {countryData && <CurrencyConverter countryCurrencies={countryData.currencies} />}
+            {countryData && (
+              <CurrencyConverter countryCurrencies={countryData.currencies} />
+            )}
           </div>
           <CountryPageTitle countryData={countryData} />
           {countryData ? <Map countryData={countryData} /> : null}

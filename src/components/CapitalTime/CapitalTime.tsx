@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 
 import * as cityTimezones from 'city-timezones';
 
@@ -10,13 +10,14 @@ type CapitalTimeProps = {
   countryData: Country;
 };
 
-const CapitalTime = ({ countryData }: CapitalTimeProps) => {
+const CapitalTime = ({ countryData }: CapitalTimeProps): ReactElement => {
   const [time, setTime] = useState(null);
 
   useEffect(() => {
     const cityLookup = cityTimezones.lookupViaCity(countryData.capital);
 
-    const cityTimeZone = cityLookup[0] && cityLookup[0].timezone ? cityLookup[0].timezone : 'UTC';
+    const cityTimeZone =
+      cityLookup[0] && cityLookup[0].timezone ? cityLookup[0].timezone : 'UTC';
     const dateProperties: Intl.DateTimeFormatOptions = {
       timeZone: cityTimeZone,
       day: 'numeric',
@@ -29,9 +30,11 @@ const CapitalTime = ({ countryData }: CapitalTimeProps) => {
     };
 
     setInterval(() => {
-      setTime(new Date().toLocaleString('en', dateProperties).replace(/:/g, '-'));
+      setTime(
+        new Date().toLocaleString('en', dateProperties).replace(/:/g, '-')
+      );
     }, 1000);
-  }, []);
+  }, [countryData]);
 
   return (
     <div>

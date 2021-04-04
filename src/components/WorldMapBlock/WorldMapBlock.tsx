@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import { WorldMap } from 'react-svg-worldmap';
 
 import { WordlMapData } from '../../models/CountryList.model';
@@ -6,12 +7,25 @@ import './WorldMapBlock.scss';
 
 type WorldMapBlockProps = {
   countries: WordlMapData[];
-  onClickAction: any;
+  onClickAction: (
+    event: React.MouseEvent<SVGElement, Event>,
+    countryName: string,
+    isoCode: string,
+    value: string,
+    prefix?: string,
+    suffix?: string
+  ) => any;
 };
 
-export const WorldMapBlock = ({ countries, onClickAction }: WorldMapBlockProps) => {
+const WorldMapBlock = ({
+  countries,
+  onClickAction,
+}: WorldMapBlockProps): ReactElement => {
   return (
-    <div className="world-map" style={{ display: 'flex', justifyContent: 'center' }}>
+    <div
+      className="world-map"
+      style={{ display: 'flex', justifyContent: 'center' }}
+    >
       <WorldMap
         backgroundColor="-webkit-linear-gradient(to top, #cfdef3, #e0eafc)"
         color="red"
@@ -24,3 +38,5 @@ export const WorldMapBlock = ({ countries, onClickAction }: WorldMapBlockProps) 
     </div>
   );
 };
+
+export default WorldMapBlock;

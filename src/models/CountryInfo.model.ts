@@ -1,18 +1,18 @@
 interface QueryNormalized {
   from: string;
   to: string;
-};
+}
 
 export interface CountryDetail {
   extract: string;
   ns: string;
   pageid: number;
-  title: String;
-};
+  title: string;
+}
 
 interface CountryInfoPages {
   [key: string]: CountryDetail;
-};
+}
 
 interface CountryInfoQuery {
   normalized: QueryNormalized[];

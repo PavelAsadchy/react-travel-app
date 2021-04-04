@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Country } from '../../models/CountryList.model';
@@ -9,7 +10,7 @@ type SearchResultsProps = {
   searchResult: Country[];
 };
 
-export const SearchResults = ({ searchResult }: SearchResultsProps) => {
+const SearchResults = ({ searchResult }: SearchResultsProps): ReactElement => {
   return (
     <div className="search-container">
       {searchResult.map((item: Country) => (
@@ -22,3 +23,5 @@ export const SearchResults = ({ searchResult }: SearchResultsProps) => {
     </div>
   );
 };
+
+export default SearchResults;

@@ -1,26 +1,28 @@
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 
-import { AttractionInfo } from '../../models/AttractionInfo.model';
-import { CountryService } from '../../services/http.service';
+import { CapitalAttraction } from '../../models/AttractionInfo.model';
+import CountryService from '../../services/http.service';
 
 import './AttractionCard.scss';
 
 type AttractionCardProps = {
-  attraction: AttractionInfo;
+  attraction: CapitalAttraction;
 };
 
-const AttractionCard = ({ attraction }: AttractionCardProps) => {
+const AttractionCard = ({ attraction }: AttractionCardProps): ReactElement => {
   const [attractionInfo, setAttractionInfo] = useState(null);
 
   useEffect(() => {
-    CountryService.fetchAttractionInfo(attraction.xid)
-      .then((response) => response.json())
-      .then((info) => setAttractionInfo(info));
-  }, []);
+    CountryService.fetchAttractionInfo(attraction.xid).then((info) =>
+      setAttractionInfo(info)
+    );
+  }, [attraction]);
 
   const errorText = '...loading';
   const isInfoReceived = attractionInfo && !attractionInfo.error;
-  const text = isInfoReceived ? attractionInfo.wikipedia_extracts.text : errorText;
+  const text = isInfoReceived
+    ? attractionInfo.wikipedia_extracts.text
+    : errorText;
   const imageUrl = isInfoReceived ? attractionInfo.preview.source : '';
   const kinds = attraction.kinds.replace(/_/g, ' ').replace(/,/g, ', ');
 
@@ -32,7 +34,11 @@ const AttractionCard = ({ attraction }: AttractionCardProps) => {
         <div className="attraction__text">{text}</div>
       </div>
 
-      <img className="attraction__image" src={imageUrl} />
+      <img
+        alt="attraction_image"
+        className="attraction__image"
+        src={imageUrl}
+      />
     </div>
   );
 };

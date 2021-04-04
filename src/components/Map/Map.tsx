@@ -1,4 +1,8 @@
+import { ReactElement } from 'react';
+
 import { GoogleMap, LoadScript } from '@react-google-maps/api';
+
+import { GOOGLE_MAPS_API_KEY } from '../../consts/urls.const';
 import { Country } from '../../models/CountryList.model';
 
 type MapProps = {
@@ -7,27 +11,20 @@ type MapProps = {
 
 const containerStyle = {
   width: '400px',
-  height: '400px'
+  height: '400px',
 };
 
-const Map = ({ countryData }: MapProps) => {
-
+const Map = ({ countryData }: MapProps): ReactElement => {
   const center = {
     lat: countryData.latlng[0],
     lng: countryData.latlng[1],
   };
-  
+
   return (
-    <LoadScript
-      googleMapsApiKey="AIzaSyAFYEI6Mv2SthzLCRsN_jTogm5aWJ8Ajt8"
-    >
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={5}
-      >
-      </GoogleMap>
+    <LoadScript googleMapsApiKey={GOOGLE_MAPS_API_KEY}>
+      <GoogleMap center={center} mapContainerStyle={containerStyle} zoom={5} />
     </LoadScript>
-  )};
+  );
+};
 
 export default Map;
