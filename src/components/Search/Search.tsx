@@ -21,6 +21,7 @@ const Search: React.FC<SearchProps> = ({
       onChange={(e) => searchHandler(e.target.value)}
       onFocus={handleFocus}
       placeholder="Enter Country Name"
+      type="search"
       value={searchValue}
     />
   );
