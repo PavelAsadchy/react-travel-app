@@ -1,0 +1,14 @@
+.modal-content, .list-group-item {
+  background: #212529;
+  color: #fff;
+
+  & .close {
+    color: white;
+  }
+}
+
+.list-group-item {
+  background: #212529;
+  color: #fff;
+  border: 1px solid #fff;
+}

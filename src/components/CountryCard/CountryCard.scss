@@ -1,4 +1,4 @@
-.card {
+.country-card {
   margin: 0 auto;
   width: 300px;
   cursor: pointer;
@@ -7,11 +7,11 @@
   color: #fff;
 
   &:hover {
-    & .card__title {
+    & .country-card__title {
       color: #03accd;
     }
 
-    & .card__img {
+    & .country-card__img {
       filter: brightness(35%);
       opacity: .9;
     }

@@ -1,5 +1,4 @@
 import { ReactElement } from 'react';
-import Carousel from 'react-bootstrap/Carousel';
 import { Link } from 'react-router-dom';
 
 import { Country } from '../../models/CountryList.model';
@@ -12,28 +11,19 @@ type SearchResultsProps = {
 };
 
 const SearchResults = ({ searchResult }: SearchResultsProps): ReactElement => {
-  // return (
-  //   <div className="search-container">
-  //     {searchResult.map((item: Country) => (
-  //       <div key={item.name}>
-  //         <Link to={`/${item.name.toLocaleLowerCase()}`}>
-  //           <CountryCard item={item} />
-  //         </Link>
-  //       </div>
-  //     ))}
-  //   </div>
-  // );
   return (
     <div className="search-container">
-      <Carousel className="search-container__carousel">
-        {searchResult.map((item: Country) => (
-          <Carousel.Item key={item.name}>
+      {searchResult.length > 0 ? (
+        searchResult.map((item: Country) => (
+          <div key={item.name}>
             <Link to={`/${item.name.toLocaleLowerCase()}`}>
               <CountryCard item={item} />
             </Link>
-          </Carousel.Item>
-        ))}
-      </Carousel>
+          </div>
+        ))
+      ) : (
+        <div className="search-container__no-results">No results found</div>
+      )}
     </div>
   );
 };

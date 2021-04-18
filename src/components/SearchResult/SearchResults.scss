@@ -1,8 +1,14 @@
 .search-container {
-  position: sticky;
-  bottom: 0;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  background: #212529;
 
-  &__carousel {
-    height: 200px;
+  &__no-results {
+    color: #fff;
   }
 }
