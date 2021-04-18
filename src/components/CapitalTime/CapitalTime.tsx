@@ -15,7 +15,6 @@ const CapitalTime = ({ countryData }: CapitalTimeProps): ReactElement => {
 
   useEffect(() => {
     const cityLookup = cityTimezones.lookupViaCity(countryData.capital);
-
     const cityTimeZone =
       cityLookup[0] && cityLookup[0].timezone ? cityLookup[0].timezone : 'UTC';
     const dateProperties: Intl.DateTimeFormatOptions = {
@@ -28,12 +27,13 @@ const CapitalTime = ({ countryData }: CapitalTimeProps): ReactElement => {
       minute: 'numeric',
       second: 'numeric',
     };
-
-    setInterval(() => {
+    const setTimer = setInterval(() => {
       setTime(
         new Date().toLocaleString('en', dateProperties).replace(/:/g, '-')
       );
     }, 1000);
+
+    return () => clearInterval(setTimer);
   }, [countryData]);
 
   return (

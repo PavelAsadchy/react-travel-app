@@ -14,12 +14,14 @@ const CountryCard = ({ item }: CountryCardProps): ReactElement => {
 
   return (
     <Card>
-      <Card.Img className="card__img" src={flag} variant="top" />
-      <Card.Body>
-        <Card.Title>{name}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">{capital}</Card.Subtitle>
-        <Card.Text>Native name: {nativeName}</Card.Text>
-      </Card.Body>
+      <Card.Img className="card__img" src={flag} />
+      <Card.ImgOverlay>
+        <Card.Title className="card__title">{name}</Card.Title>
+        <Card.Subtitle className="card__subtitle mb-2 text-muted">
+          {capital}
+        </Card.Subtitle>
+        <Card.Text className="card__text">Native name: {nativeName}</Card.Text>
+      </Card.ImgOverlay>
     </Card>
   );
 };

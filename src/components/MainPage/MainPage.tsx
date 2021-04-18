@@ -5,6 +5,8 @@ import Header from '../Header/Header';
 import SearchResults from '../SearchResult/SearchResults';
 import WorldMapBlock from '../WorldMapBlock/WorldMapBlock';
 
+import './MainPage.scss';
+
 type MainPageProps = {
   countriesList: Country[];
   randomCountriesList: Country[];
@@ -58,17 +60,19 @@ const MainPage = ({
   };
 
   return (
-    <div>
+    <div className="main-page">
       {header}
-      {searchValue ? (
-        <SearchResults searchResult={searchResultCountries} />
-      ) : (
-        <SearchResults searchResult={randomCountriesList} />
-      )}
-      <WorldMapBlock
-        countries={worldMapData}
-        onClickAction={onCountryClickHandler}
-      />
+      <div className="main-page__content">
+        <WorldMapBlock
+          countries={worldMapData}
+          onClickAction={onCountryClickHandler}
+        />
+        {searchValue ? (
+          <SearchResults searchResult={searchResultCountries} />
+        ) : (
+          <SearchResults searchResult={randomCountriesList} />
+        )}
+      </div>
     </div>
   );
 };
