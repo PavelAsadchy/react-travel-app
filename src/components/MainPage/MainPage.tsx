@@ -2,6 +2,7 @@ import { ReactElement, useState } from 'react';
 
 import { Country } from '../../models/CountryList.model';
 import Header from '../Header/Header';
+import RandomCards from '../RandomCards/RandomCards';
 import SearchResults from '../SearchResult/SearchResults';
 import WorldMapBlock from '../WorldMapBlock/WorldMapBlock';
 
@@ -67,11 +68,12 @@ const MainPage = ({
           countries={worldMapData}
           onClickAction={onCountryClickHandler}
         />
-        {searchValue ? (
+        {/* {searchValue ? (
           <SearchResults searchResult={searchResultCountries} />
         ) : (
           <SearchResults searchResult={randomCountriesList} />
-        )}
+        )} */}
+        <RandomCards randomCards={randomCountriesList} />
       </div>
     </div>
   );
