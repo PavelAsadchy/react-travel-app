@@ -1,3 +1,5 @@
+@import '../../UI/colors.scss';
+
 .search-container {
   flex-grow: 1;
   display: flex;
@@ -6,9 +8,9 @@
   flex-wrap: wrap;
   gap: 20px;
   padding: 20px;
-  background: #212529;
+  background: $color-main-dark;
 
   &__no-results {
-    color: #fff;
+    color: $color-main-light;
   }
 }

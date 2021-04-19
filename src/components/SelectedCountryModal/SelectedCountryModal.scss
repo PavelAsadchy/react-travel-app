@@ -1,14 +1,16 @@
+@import '../../UI/colors.scss';
+
 .modal-content, .list-group-item {
-  background: #212529;
-  color: #fff;
+  background: $color-main-dark;
+  color: $color-main-light;
 
   & .close {
-    color: white;
+    color: $color-main-light;
   }
 }
 
 .list-group-item {
-  background: #212529;
-  color: #fff;
-  border: 1px solid #fff;
+  background: $color-main-dark;
+  color: $color-main-light;
+  border: 1px solid $color-main-light;
 }

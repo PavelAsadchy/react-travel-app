@@ -1,6 +1,8 @@
+@import '../../UI/colors.scss';
+
 .travel-app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: #03accd;
+  background: $color-main;
 }

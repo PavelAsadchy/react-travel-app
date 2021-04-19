@@ -1,14 +1,16 @@
+@import '../../UI/colors.scss';
+
 .country-card {
   margin: 0 auto;
   width: 300px;
   cursor: pointer;
   background: transparent;
   border: none;
-  color: #fff;
+  color: $color-main-light;
 
   &:hover {
     & .country-card__title {
-      color: #03accd;
+      color: $color-main;
     }
 
     & .country-card__img {
