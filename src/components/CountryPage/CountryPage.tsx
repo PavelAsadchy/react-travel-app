@@ -39,17 +39,21 @@ const CountryPage = (): ReactElement => {
   return (
     <div className="country-page">
       <Header isMainPage={false} />
-      <div className="country-page__info">
-        <div className="country-page__aside">
-          <CountryPageTitle countryData={countryData} />
-          <Widget countryData={countryData} />
-          {countryData ? <Map countryData={countryData} /> : null}
+      {countryData && (
+        <div className="country-page__info">
+          <div className="country-page__aside">
+            <CountryPageTitle countryData={countryData} />
+            <Widget countryData={countryData} />
+            {countryData ? <Map countryData={countryData} /> : null}
+          </div>
+          <div className="country-page__text">
+            <CountryInfo countryDetail={countryDetail} />
+          </div>
         </div>
-        <div className="country-page__text">
-          <CountryInfo countryDetail={countryDetail} />
-        </div>
+      )}
+      <div className="country-page__video">
+        <Video countryName={countryName} />
       </div>
-      <Video countryName={countryName} />
       {countryData ? <Attractions countryData={countryData} /> : null}
     </div>
   );

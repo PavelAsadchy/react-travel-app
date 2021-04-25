@@ -10,7 +10,6 @@ type MapProps = {
 };
 
 const containerStyle = {
-  // width: '400px',
   height: '400px',
 };
 
