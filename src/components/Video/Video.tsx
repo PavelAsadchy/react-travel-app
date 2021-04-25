@@ -31,6 +31,7 @@ const Video = ({ countryName }: VideoProps): ReactElement => {
             ? youTubeUrl + video.items[0].id.videoId
             : '...Loading'
         }
+        width="100%"
       />
     </div>
   );

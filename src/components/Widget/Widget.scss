@@ -1,0 +1,13 @@
+@import '../../UI/colors.scss';
+
+.widget {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  color: $color-main-light;
+  background-color: rgba(33, 37, 41, .6);
+  text-shadow: 1px 1px 2px $color-main-light;
+  text-align: center;
+}

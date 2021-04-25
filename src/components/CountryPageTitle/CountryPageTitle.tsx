@@ -19,8 +19,6 @@ const CountryPageTitle = ({
     <div
       className="country__heading"
       style={{
-        width: '400px',
-        height: '400px',
         backgroundImage: `url(${flag})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',

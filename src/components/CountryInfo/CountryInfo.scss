@@ -1,16 +1,8 @@
-.country {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+@import '../../UI/colors.scss';
 
-  &__flag {
-    display: block;
-    width: 100%;
-    height: 300px;
-  }
-
-  &__description {
-    width: 80%;
-  }
+.country-info {
+    color: $color-main-light;
+    font-size: 1.2rem;
+    text-align: justify;
+    text-shadow: 1px 1px 5px $color-main-dark;
 }

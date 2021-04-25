@@ -1,15 +1,26 @@
+@import '../../UI/colors.scss';
+
 .country-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  &__widget {
+  &__info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  &__aside {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    width: 300px;
+    flex: 1 1 400px;
+    box-shadow: 2px 5px 15px 2px $color-main-dark;
+  }
+
+  &__text {
+    flex: 5 1 400px;
   }
 }
