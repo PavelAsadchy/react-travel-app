@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useState } from 'react';
-import Slider from 'react-slick';
+import Carousel from 'react-bootstrap/Carousel';
 
 import {
   CapitalAttraction,
@@ -18,7 +18,7 @@ type AttractionsProps = {
 
 const Attractions = ({ countryData }: AttractionsProps): ReactElement => {
   const [capitalAttractions, setCapitalAttractions] = useState(
-    null as JSX.Element[]
+    null as CapitalAttraction[]
   );
 
   const { alpha2Code, capital } = countryData;
@@ -31,32 +31,22 @@ const Attractions = ({ countryData }: AttractionsProps): ReactElement => {
         const { lon, lat } = coordinates;
         return CountryService.fetchCapitalAttractions(searchRadius, lon, lat);
       })
-      .then((attractions: CapitalAttraction[]) => {
-        if (!attractions) return <div>...loading</div>;
-
-        return attractions.map((attraction: CapitalAttraction) => {
-          return (
-            <div key={attraction.xid}>
-              <AttractionCard attraction={attraction} />
-            </div>
-          );
-        });
-      })
-      .then((attractionList: JSX.Element[]) =>
-        setCapitalAttractions(attractionList)
+      .then((attractions: CapitalAttraction[]) =>
+        setCapitalAttractions(attractions)
       );
   }, [alpha2Code, capital]);
 
-  const sliderSettings = {
-    arrows: true,
-    dots: true,
-    infinite: true,
-    slidesToShow: 1,
-  };
-
   return (
-    <div className="attractions__slider">
-      <Slider {...sliderSettings}>{capitalAttractions}</Slider>
+    <div className="attractions">
+      {capitalAttractions && capitalAttractions.length && (
+        <Carousel className="attractions__carousel">
+          {capitalAttractions.map((item: CapitalAttraction) => (
+            <Carousel.Item key={item.name}>
+              <AttractionCard item={item} />
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      )}
     </div>
   );
 };

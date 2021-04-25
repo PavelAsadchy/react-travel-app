@@ -54,7 +54,11 @@ const CountryPage = (): ReactElement => {
       <div className="country-page__video">
         <Video countryName={countryName} />
       </div>
-      {countryData ? <Attractions countryData={countryData} /> : null}
+      {countryData ? (
+        <div className="country-page__attractions">
+          <Attractions countryData={countryData} />
+        </div>
+      ) : null}
     </div>
   );
 };
