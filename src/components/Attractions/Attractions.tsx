@@ -37,7 +37,7 @@ const Attractions = ({ countryData }: AttractionsProps): ReactElement => {
   }, [alpha2Code, capital]);
 
   return (
-    <div className="attractions">
+    <>
       {capitalAttractions && capitalAttractions.length && (
         <Carousel className="attractions__carousel">
           {capitalAttractions.map((item: CapitalAttraction) => (
@@ -47,7 +47,7 @@ const Attractions = ({ countryData }: AttractionsProps): ReactElement => {
           ))}
         </Carousel>
       )}
-    </div>
+    </>
   );
 };
 
