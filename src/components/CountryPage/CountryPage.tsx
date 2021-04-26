@@ -1,4 +1,5 @@
 import { ReactElement, useEffect, useState } from 'react';
+import Spinner from 'react-bootstrap/Spinner';
 import { useLocation } from 'react-router';
 
 import {
@@ -39,28 +40,32 @@ const CountryPage = (): ReactElement => {
   return (
     <div className="country-page">
       <Header isMainPage={false} />
-      <div className="country-page__container">
-        {countryData && (
-          <div className="country-page__info">
-            <div className="country-page__aside">
-              <CountryPageTitle countryData={countryData} />
-              <Widget countryData={countryData} />
-              {countryData ? <Map countryData={countryData} /> : null}
+      {countryData ? (
+        <div className="country-page__container">
+          {countryData && (
+            <div className="country-page__info">
+              <div className="country-page__aside">
+                <CountryPageTitle countryData={countryData} />
+                <Widget countryData={countryData} />
+                <Map countryData={countryData} />
+              </div>
+              <div className="country-page__text">
+                <CountryInfo countryDetail={countryDetail} />
+              </div>
             </div>
-            <div className="country-page__text">
-              <CountryInfo countryDetail={countryDetail} />
-            </div>
+          )}
+          <div className="country-page__video">
+            <Video countryName={countryName} />
           </div>
-        )}
-        <div className="country-page__video">
-          <Video countryName={countryName} />
-        </div>
-        {countryData ? (
           <div className="country-page__attractions">
             <Attractions countryData={countryData} />
           </div>
-        ) : null}
-      </div>
+        </div>
+      ) : (
+        <div className="country-page__loader">
+          <Spinner animation="border" />
+        </div>
+      )}
     </div>
   );
 };
