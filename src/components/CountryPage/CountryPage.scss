@@ -1,15 +1,64 @@
+@import '../../UI/colors.scss';
+
 .country-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  &__widget {
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    width: 300px;
+    gap: 15px;
+  }
+
+  &__info {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  &__aside {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 400px;
+    box-shadow: 2px 5px 15px 2px $color-main-dark;
+  }
+
+  &__text {
+    flex: 5 1 400px;
+  }
+
+  &__video {
+    width: 100%;
+    height: 700px;
+    box-shadow: 2px 5px 15px 2px $color-main-dark;
+
+    @media (max-width: 1000px) {
+      height: 500px;
+    }
+
+    @media (max-width: 600px) {
+      height: 360px;
+    }
+  }
+
+  &__attractions {
+    width: 100%;
+    box-shadow: 2px 5px 15px 2px $color-main-dark;
+  }
+
+  &__loader {
+    height: 100vh;
+    width: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

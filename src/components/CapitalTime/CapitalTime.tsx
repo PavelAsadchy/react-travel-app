@@ -4,18 +4,17 @@ import * as cityTimezones from 'city-timezones';
 
 import { Country } from '../../models/CountryList.model';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './CapitalTime.scss';
 
 type CapitalTimeProps = {
   countryData: Country;
 };
 
 const CapitalTime = ({ countryData }: CapitalTimeProps): ReactElement => {
-  const [time, setTime] = useState(null);
+  const [time, setTime] = useState(null as string);
 
   useEffect(() => {
     const cityLookup = cityTimezones.lookupViaCity(countryData.capital);
-
     const cityTimeZone =
       cityLookup[0] && cityLookup[0].timezone ? cityLookup[0].timezone : 'UTC';
     const dateProperties: Intl.DateTimeFormatOptions = {
@@ -28,18 +27,19 @@ const CapitalTime = ({ countryData }: CapitalTimeProps): ReactElement => {
       minute: 'numeric',
       second: 'numeric',
     };
-
-    setInterval(() => {
+    const setTimer = setInterval(() => {
       setTime(
         new Date().toLocaleString('en', dateProperties).replace(/:/g, '-')
       );
     }, 1000);
+
+    return () => clearInterval(setTimer);
   }, [countryData]);
 
   return (
-    <div>
-      <div className="h3">Capital Time:</div>
-      <div className="h4">{`${time || '...loading'}`}</div>
+    <div className="capital-time">
+      <div className="capital-time__title">Capital Time:</div>
+      <div className="capital-time__time">{`${time || '...loading'}`}</div>
     </div>
   );
 };

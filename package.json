@@ -62,7 +62,6 @@
     "react-refresh": "^0.8.3",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "react-slick": "^0.28.1",
     "react-svg-worldmap": "^1.0.44",
     "resolve": "1.18.1",
     "resolve-url-loader": "^3.1.2",

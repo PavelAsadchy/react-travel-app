@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useState } from 'react';
-import { Container, Row } from 'react-bootstrap';
+import Spinner from 'react-bootstrap/Spinner';
 import { useLocation } from 'react-router';
 
 import {
@@ -9,14 +9,12 @@ import {
 import { Country } from '../../models/CountryList.model';
 import CountryService from '../../services/http.service';
 import Attractions from '../Attractions/Attractions';
-import CapitalTime from '../CapitalTime/CapitalTime';
 import CountryInfo from '../CountryInfo/CountyInfo';
 import CountryPageTitle from '../CountryPageTitle/CountryPageTitle';
-import CurrencyConverter from '../CurrencyConverter/CurrencyConverter';
 import Header from '../Header/Header';
 import Map from '../Map/Map';
 import Video from '../Video/Video';
-import Weather from '../Weather/Weather';
+import Widget from '../Widget/Widget';
 
 import './CountryPage.scss';
 
@@ -42,22 +40,32 @@ const CountryPage = (): ReactElement => {
   return (
     <div className="country-page">
       <Header isMainPage={false} />
-      <Container>
-        <Row>
-          <div className="country-page__widget">
-            {countryData ? <CapitalTime countryData={countryData} /> : null}
-            {countryData && <Weather capital={countryData.capital} />}
-            {countryData && (
-              <CurrencyConverter countryCurrencies={countryData.currencies} />
-            )}
+      {countryData ? (
+        <div className="country-page__container">
+          {countryData && (
+            <div className="country-page__info">
+              <div className="country-page__aside">
+                <CountryPageTitle countryData={countryData} />
+                <Widget countryData={countryData} />
+                <Map countryData={countryData} />
+              </div>
+              <div className="country-page__text">
+                <CountryInfo countryDetail={countryDetail} />
+              </div>
+            </div>
+          )}
+          <div className="country-page__video">
+            <Video countryName={countryName} />
           </div>
-          <CountryPageTitle countryData={countryData} />
-          {countryData ? <Map countryData={countryData} /> : null}
-        </Row>
-      </Container>
-      <CountryInfo countryDetail={countryDetail} />
-      <Video countryName={countryName} />
-      {countryData ? <Attractions countryData={countryData} /> : null}
+          <div className="country-page__attractions">
+            <Attractions countryData={countryData} />
+          </div>
+        </div>
+      ) : (
+        <div className="country-page__loader">
+          <Spinner animation="border" />
+        </div>
+      )}
     </div>
   );
 };

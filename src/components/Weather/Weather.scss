@@ -1,0 +1,29 @@
+.weather {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  flex-wrap: wrap;
+
+  &__description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &-icon {
+      width: 50px;
+      height: 50px;
+    }
+
+    &-text {
+      font-size: .7rem;
+    }
+  }
+
+  &__temperature {
+    font-size: 4rem;
+  }
+
+  &__additional {
+    font-size: .8rem;
+  }
+}

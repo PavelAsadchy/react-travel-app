@@ -1,6 +1,5 @@
 import { ReactElement } from 'react';
 import { Navbar } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 
 import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher';
 import Search from '../Search/Search';
@@ -23,10 +22,8 @@ const Header = ({
   ) : null;
 
   return (
-    <Navbar bg="light" className="container header" expand="lg">
-      <Link className="row" to="/">
-        <h1 className="header__logo">Travel App</h1>
-      </Link>
+    <Navbar bg="dark" className="header" variant="dark">
+      <Navbar.Brand href="/">Travel App</Navbar.Brand>
       {search}
       <LanguageSwitcher />
     </Navbar>

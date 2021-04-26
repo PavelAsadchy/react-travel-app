@@ -1,23 +1,29 @@
-.attraction {
-  padding: 10px 0 20px 0;
-  width: 100%;
-  height: 300px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+@import '../../UI/colors.scss';
 
-  &__info {
-    margin-top: 10px;
-    margin-right: 10px;
-    width:45%;
-    height: inherit;
-    overflow-y: auto;
+.attraction-card {
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  border: none !important;
+  color: $color-main-light;
+
+  &__img {
+    height: 500px;
+    object-fit: cover;
+    filter: brightness(25%);
+    opacity: .8;
+
+    @media (max-width: 600px) {
+      height: 300px;
+    }
   }
 
-  &__image {
-    display: block;
-    max-width: 45%;
-    height: auto;
+  &__body {
+    width: 70%;
+    margin: 0 auto;
+  }
+
+  &__text {
+    text-align: justify;
   }
 }

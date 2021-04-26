@@ -17,13 +17,11 @@ const CountryInfo = ({ countryDetail }: CountryInfoProps): ReactElement => {
   };
 
   return (
-    <div className="country">
-      <div
-        className="country__description lead"
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={createMarkup()}
-      />
-    </div>
+    <div
+      className="country-info"
+      // eslint-disable-next-line react/no-danger
+      dangerouslySetInnerHTML={createMarkup()}
+    />
   );
 };
 

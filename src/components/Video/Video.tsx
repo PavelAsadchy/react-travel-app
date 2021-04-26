@@ -26,11 +26,13 @@ const Video = ({ countryName }: VideoProps): ReactElement => {
     <div className="video">
       <ReactPlayer
         controls
+        height="100%"
         url={
           isVideoReceived
             ? youTubeUrl + video.items[0].id.videoId
             : '...Loading'
         }
+        width="100%"
       />
     </div>
   );

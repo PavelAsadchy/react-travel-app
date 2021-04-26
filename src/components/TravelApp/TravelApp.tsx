@@ -7,6 +7,8 @@ import CountryPage from '../CountryPage/CountryPage';
 import Footer from '../Footer/Footer';
 import MainPage from '../MainPage/MainPage';
 
+import './TravelApp.scss';
+
 const shuffleArray = (array: Country[]): Country[] => {
   const newArr = array.slice();
 
@@ -37,7 +39,7 @@ const TravelApp = (): ReactElement => {
 
   return (
     <Router>
-      <div>
+      <div className="travel-app">
         <Route
           component={() => (
             <MainPage

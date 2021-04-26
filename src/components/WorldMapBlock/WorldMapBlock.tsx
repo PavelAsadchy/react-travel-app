@@ -27,8 +27,8 @@ const WorldMapBlock = ({
       style={{ display: 'flex', justifyContent: 'center' }}
     >
       <WorldMap
-        backgroundColor="-webkit-linear-gradient(to top, #cfdef3, #e0eafc)"
-        color="red"
+        backgroundColor="03accd"
+        color="#333"
         data={countries}
         onClickFunction={onClickAction}
         size="xxl"

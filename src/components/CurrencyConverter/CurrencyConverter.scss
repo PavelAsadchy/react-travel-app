@@ -1,0 +1,22 @@
+.currency-converter {
+  display: flex;
+  gap: 25px;
+
+  &__title {
+    font-size: .8rem;
+  }
+
+  &__name {
+    font-size: 1.2rem;
+  }
+
+  &__rates {
+    display: flex;
+    flex-direction: column;
+
+    &-pair {
+      display: flex;
+      gap: 10px;
+    }
+  }
+}

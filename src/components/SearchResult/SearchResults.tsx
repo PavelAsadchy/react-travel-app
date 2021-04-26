@@ -13,13 +13,17 @@ type SearchResultsProps = {
 const SearchResults = ({ searchResult }: SearchResultsProps): ReactElement => {
   return (
     <div className="search-container">
-      {searchResult.map((item: Country) => (
-        <div key={item.name}>
-          <Link to={`/${item.name.toLocaleLowerCase()}`}>
-            <CountryCard item={item} />
-          </Link>
-        </div>
-      ))}
+      {searchResult.length > 0 ? (
+        searchResult.map((item: Country) => (
+          <div key={item.name}>
+            <Link to={`/${item.name.toLocaleLowerCase()}`}>
+              <CountryCard item={item} />
+            </Link>
+          </div>
+        ))
+      ) : (
+        <div className="search-container__no-results">No results found</div>
+      )}
     </div>
   );
 };

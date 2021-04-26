@@ -2,8 +2,12 @@ import { ReactElement, useState } from 'react';
 
 import { Country } from '../../models/CountryList.model';
 import Header from '../Header/Header';
+import RandomCards from '../RandomCards/RandomCards';
 import SearchResults from '../SearchResult/SearchResults';
+import SelectedCountryModal from '../SelectedCountryModal/SelectedCountryModal';
 import WorldMapBlock from '../WorldMapBlock/WorldMapBlock';
+
+import './MainPage.scss';
 
 type MainPageProps = {
   countriesList: Country[];
@@ -15,6 +19,10 @@ const MainPage = ({
   randomCountriesList,
 }: MainPageProps): ReactElement => {
   const [searchValue, setSearchValue] = useState('');
+  const [selectedCountryOnMap, setSelectedCountryOnMap] = useState(
+    null as Country
+  );
+  const [modalShow, setModalShow] = useState(false);
 
   const searchHandler = (value: string) => setSearchValue(value);
 
@@ -54,21 +62,38 @@ const MainPage = ({
       (country: Country) =>
         country.alpha2Code.toLocaleLowerCase() === isoCode.toLocaleLowerCase()
     );
-    setSearchValue(clickedCountry.name);
+
+    setSelectedCountryOnMap(clickedCountry);
+    setModalShow(true);
+  };
+
+  const onModalHide = (): void => {
+    setModalShow(false);
+    setSelectedCountryOnMap(null);
   };
 
   return (
-    <div>
+    <div className="main-page">
       {header}
       {searchValue ? (
         <SearchResults searchResult={searchResultCountries} />
       ) : (
-        <SearchResults searchResult={randomCountriesList} />
+        <div className="main-page__content">
+          <WorldMapBlock
+            countries={worldMapData}
+            onClickAction={onCountryClickHandler}
+          />
+          {selectedCountryOnMap ? (
+            <SelectedCountryModal
+              onHide={onModalHide}
+              selectedCountry={selectedCountryOnMap}
+              show={modalShow}
+            />
+          ) : (
+            <RandomCards randomCards={randomCountriesList} />
+          )}
+        </div>
       )}
-      <WorldMapBlock
-        countries={worldMapData}
-        onClickAction={onCountryClickHandler}
-      />
     </div>
   );
 };
